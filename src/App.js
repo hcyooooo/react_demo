@@ -1,25 +1,52 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import "./styles.css";
+import { connect } from "react-redux";
+import reduxUI from "redux-ui";
+import { compose } from "redux";
+import Son from "./Son";
 
-function App() {
+function App(props) {
+  const { ui } = props;
+  const uiKey = "myApp";
+
+  const methodDoesNotExist = () => {
+    throw new Error("This method does not exist");
+  };
+
+  console.log(undefined.action);
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h3>{ui.name}</h3>
+      {/* <button onClick={changeName}>changeName</button> */}
+      <button onClick={() => methodDoesNotExist()}>Break the world</button>
+      <Son uiKey={uiKey} />
     </div>
   );
 }
 
-export default App;
+const mapStateToProps = (state) => {
+  console.log(state);
+  return { name: state.name.name, ui: state.ui };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    changeName: () => dispatch({ type: "changeName" }),
+  };
+};
+
+const connector = compose(
+  // connect(mapStateToProps, mapDispatchToProps),
+  reduxUI({
+    key: "myApp",
+    state: {
+      name: "Joe",
+    },
+    reducer: (state, action) => {
+      console.log(action);
+      return state;
+    },
+  })
+);
+
+export default connector(App);
