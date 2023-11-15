@@ -1,25 +1,27 @@
-name: Publish Package to npmjs
+name: Publish Package
 
 on:
   push:
-    branches: [main]
+    branches:
+      - main
 
 jobs:
   build:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Checkout repository
+      - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Setup Node.js
+      - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: "16"
+          node-version: '16'
 
       - name: Install dependencies
-        run: yarn
+        run: npm install
 
-      - name: Npm Publish
-        env:
-          NPM_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+      - name: Publish to npm
         run: npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }} # Replace with your npm token secret
