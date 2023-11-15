@@ -18,13 +18,23 @@ jobs:
         with:
           node-version: "16"
 
-      - name: Install dependencies
-        run: yarn
+      # - name: Install dependencies
+      #   run: yarn
 
-      - name: Authenticate with npm
-        run: echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > ~/.npmrc
-        env:
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }} # Replace with your npm token secret
+      # - name: Authenticate with npm
+      #   run: echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > ~/.npmrc
+      #   env:
+      #     NPM_TOKEN: ${{ secrets.NPM_TOKEN }} # Replace with your npm token secret
 
-      - name: Publish to npm
-        run: npm publish
+      # - name: Publish to npm
+      #   run: npm publish
+
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v3
+        with:
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+          commit-message: "Redeploy the document"
+          title: "Redeploy the wizard-ui document"
+          branch: "redeploy-document-${{ github.run_id }}"
+          body: |
+            "This pr is the redeployment Wizard-UI document."
