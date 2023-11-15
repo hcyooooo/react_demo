@@ -41,5 +41,9 @@
     "github": {
       "release": true
     }
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/hcyooooo/react_demo"
   }
 }
