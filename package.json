@@ -16,14 +16,16 @@
   },
   "devDependencies": {
     "@babel/runtime": "7.13.8",
-    "typescript": "4.1.3"
+    "release-it": "^17.0.0",
+    "typescript": "3.2.1"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build && yarn sentry:sourcemaps",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
-    "sentry:sourcemaps": "sentry-cli sourcemaps inject --org hanchuyou --project javascript-react ./build && sentry-cli sourcemaps upload --org hanchuyou --project javascript-react ./build"
+    "sentry:sourcemaps": "sentry-cli sourcemaps inject --org hanchuyou --project javascript-react ./build && sentry-cli sourcemaps upload --org hanchuyou --project javascript-react ./build",
+    "release": "release-it"
   },
   "browserslist": [
     ">0.2%",
@@ -34,5 +36,10 @@
   "publishConfig": {
     "access": "public",
     "registry": "https://registry.npmjs.org/"
+  },
+  "release-it": {
+    "github": {
+      "release": true
+    }
   }
 }
